@@ -1,7 +1,7 @@
 
 # CSV Image data
 
- a system to efficiently process image data from CSV files
+ A system to efficiently process image data from CSV files
 
  
 
