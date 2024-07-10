@@ -1,0 +1,7 @@
+please follow the below points - 
+
+1. run  "script.sh" file
+
+2. docker-compose build
+
+3. docker-compose up

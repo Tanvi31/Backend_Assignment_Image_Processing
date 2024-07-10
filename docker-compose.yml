@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:  
+  nginx1:
+    container_name: nginx1
+    ports:
+      - '443:443'
+    build: ./nginx1
+    depends_on:
+      - csv
+      - imagep
+    restart: on-failure
+
+
+  redis:
+    container_name: redis
+    image: redis:latest
+   # volumes:
+    #  - redis_data:/data
+    restart: on-failure
+
+  
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  #  volumes:
+   #   - mongo_data:/data
+    restart: on-failure
+  
+
+
+  csv:
+    container_name: csv
+    build: ./csv
+    volumes:
+     - ./shared:/app/shared
+    env_file:
+     - ./csv/.env
+    depends_on:
+     - mongo
+     - redis
+   # restart: on-failure
+
+  imagep:
+    container_name: imagep
+    build: ./imagep
+    volumes:
+     - ./shared:/app/shared
+    env_file:
+     - ./imagep/.env
+    depends_on:
+     - mongo
+     - redis
+   # restart: on-failure
+
+
+#volumes:
+ # redis_data:
+ # mongo_data:
